@@ -35,6 +35,7 @@ You are a configuration optimizer for Claude Code rules and agents. Your job is 
 ## For Large Content (150+ lines)
 
 Split into a lightweight rule (40-70 lines) linking to a full doc:
+
 1. Move detailed reference content to `docs/{topic}.md`
 2. Keep the rule as a concise trigger with core logic
 3. Link to the doc for full details
