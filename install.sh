@@ -13,12 +13,12 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # Installable modules (add new ones here as they're created)
-ALL_MODULES=(rules commands agents hooks plugins docs settings)
+ALL_MODULES=(rules commands agents hooks plugins docs skills templates settings)
 
 usage() {
   echo -e "${BOLD}Usage:${NC} ./install.sh [options] [modules...]"
   echo ""
-  echo -e "${BOLD}Modules:${NC} rules commands agents hooks plugins docs settings"
+  echo -e "${BOLD}Modules:${NC} rules commands agents hooks plugins docs skills templates settings"
   echo "  If no modules specified, all available modules are installed."
   echo ""
   echo -e "${BOLD}Options:${NC}"
