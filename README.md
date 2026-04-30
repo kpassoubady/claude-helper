@@ -2,6 +2,15 @@
 
 Personal collection of Claude Code customizations — rules, commands, agents, hooks, and plugins — portable across any machine.
 
+## Why this repo is useful
+
+Claude Code becomes significantly more effective when it has the right rules, commands, agents, and hooks wired up — but setting that up from scratch on every machine (or for every teammate) is tedious and easy to forget. This repo gives you a ready-to-use, opinionated starter kit that you can install with one command and carry across machines:
+
+- **Save money** — built-in rules push Claude toward the cheapest model that fits the task and keep responses terse, cutting token spend on every turn.
+- **Skip the setup** — slash commands (`/review`, `/pr`, `/changelog`), agents, and hooks for format/lint/test are pre-wired and ready to drop in.
+- **Stay portable** — clone anywhere and run `./install.sh`; existing files are preserved by default, so it's safe to layer on top of an existing `~/.claude/`.
+- **Easy to extend** — drop a new `.md` into the right folder, re-run the installer, and it's live. Fork it and make it yours.
+
 ## What's Included
 
 | Folder | Purpose | Description |
