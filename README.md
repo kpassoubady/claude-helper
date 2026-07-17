@@ -35,6 +35,16 @@ cd claude-helper
 
 This copies everything into `~/.claude/`, skipping files that already exist.
 
+Windows PowerShell:
+
+```powershell
+git clone <repo-url>
+cd claude-helper
+.\install.ps1
+```
+
+This copies everything into `$HOME/.claude`, skipping files that already exist.
+
 ## Install Options
 
 ```bash
@@ -54,6 +64,27 @@ This copies everything into `~/.claude/`, skipping files that already exist.
 # Combine options
 ./install.sh -d rules          # Dry run, rules only
 ./install.sh -f commands       # Force overwrite commands only
+```
+
+PowerShell equivalents:
+
+```powershell
+# Install everything (skip existing)
+.\install.ps1
+
+# Install specific modules only
+.\install.ps1 rules
+.\install.ps1 rules commands agents
+
+# Force overwrite existing files
+.\install.ps1 -Force
+
+# Dry run - preview without copying
+.\install.ps1 -DryRun
+
+# Combine options
+.\install.ps1 -DryRun rules      # Dry run, rules only
+.\install.ps1 -Force commands    # Force overwrite commands only
 ```
 
 ## Current Contents
