@@ -18,6 +18,7 @@ Claude Code becomes significantly more effective when it has the right rules, co
 | `rules/` | Global rules | Behavior directives loaded into every Claude Code session |
 | `commands/` | Slash commands | Custom `/command` skills invokable in any conversation |
 | `agents/` | Agent definitions | Reusable agent specs with model, tools, and prompt |
+| `skills/` | Orchestrated workflows | Invokable workflows backed by reusable agents |
 | `hooks/` | Pre/post hooks | Shell scripts triggered by Claude Code events |
 | `plugins/` | Plugins | Packaged extensions with skills and references |
 | `docs/` | Reference docs | Detailed guides linked from rules/agents |
@@ -122,12 +123,25 @@ PowerShell equivalents:
 |------|-------------|
 | `agents/model-selector.md` | Recommend optimal model (haiku/sonnet/opus) for a task |
 | `agents/rule-agent-optimizer.md` | Trim rules and agents to target line counts |
+| `agents/orchestrators/mvp-test-factory.md` | Bootstrap unit tests, coordinate parallel API/UI/k6 test authoring, and run ordered quality gates |
+| `agents/building-blocks/testers/mvp-test-bootstrapper.md` | Own approved manifests, shared test configuration, and the first passing unit smoke test |
+| `agents/building-blocks/testers/api-e2e-writer.md` | Author public API end-to-end tests in an exclusive path |
+| `agents/building-blocks/testers/ui-e2e-writer.md` | Author stable Playwright browser tests in an exclusive path |
+| `agents/building-blocks/testers/performance-test-writer.md` | Author a bounded local k6 smoke test and server lifecycle wrapper |
+| `agents/building-blocks/testers/quality-gate-runner.md` | Verify ownership and run build, unit, API, UI, and performance gates in order |
+
+### Skills
+
+| Skill | What it does |
+|------|-------------|
+| `/mvp-test-factory [project-path]` | Build and verify a real automated-test foundation for an MVP or prototype |
 
 ### Docs
 
 | File | What it does |
 |------|-------------|
 | `docs/model-selection-guide.md` | Full reference for model cost/capability tradeoffs |
+| `docs/mvp-test-factory-guide.md` | Reusable workflow and password-strength-checker reference run |
 
 ## Adding New Customizations
 
