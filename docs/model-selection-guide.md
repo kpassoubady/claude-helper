@@ -16,6 +16,14 @@ Comprehensive reference for choosing the right Claude model to optimize cost, sp
 
 Haiku handles ~80% of agent tasks: file reads, searches, status checks, data extraction, simple formatting. If a task doesn't require writing code or deep reasoning, Haiku is the right choice.
 
+### Model Selection Decision Tree
+
+Use task risk and reasoning requirements to choose the initial model. When the task is unclear rather than purely mechanical, prefer Sonnet over guessing with Haiku.
+
+![Decision tree for selecting Haiku, Sonnet, or Opus](diagrams/model-selection-decision-tree.svg)
+
+[View the Mermaid source](diagrams/model-selection-decision-tree.mmd)
+
 ## Cost Decision Matrix
 
 | Task Type | Model | Why |
@@ -56,6 +64,12 @@ Start cheap, escalate only if the task proves harder than expected:
 1. Try Haiku for exploration and data gathering
 2. Use Sonnet for the actual code/analysis work
 3. Reserve Opus for when Sonnet's output isn't good enough
+
+Escalate when evidence shows that capability is the problem. If the failure came from missing context or unclear constraints, improve the evidence before retrying instead of immediately paying for a larger model.
+
+![Progressive model escalation loop](diagrams/progressive-model-escalation.svg)
+
+[View the Mermaid source](diagrams/progressive-model-escalation.mmd)
 
 ### Pattern 3: Batch Reads with Haiku
 

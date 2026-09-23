@@ -140,8 +140,8 @@ PowerShell equivalents:
 
 | File | What it does |
 |------|-------------|
-| `docs/model-selection-guide.md` | Full reference for model cost/capability tradeoffs |
-| `docs/mvp-test-factory-guide.md` | Reusable workflow and password-strength-checker reference run |
+| [Model Selection Guide](docs/model-selection-guide.md) | Full reference for model cost/capability tradeoffs |
+| [MVP Test Factory Guide](docs/mvp-test-factory-guide.md) | Reusable workflow and password-strength-checker reference run |
 
 ## Adding New Customizations
 

@@ -8,26 +8,45 @@ A testless project has shared setup that cannot safely be parallelized. Package 
 
 The factory therefore uses this graph:
 
-```text
-Discover and preflight
-         |
-Approve frameworks and files
-         |
-Bootstrap shared test foundation
-         |
-Write and pass meaningful unit tests
-         |
-Approve one E2E charter
-         |
-  +------+------+
-  |      |      |
- API     UI     k6       author in parallel
-  |      |      |
-  +------+------+
-         |
-Build -> unit -> API -> UI -> k6
-         |
-Human evidence review
+```mermaid
+%%{init: {"flowchart": {"wrappingWidth": 420}, "themeVariables": {"fontSize": "20px", "fontFamily": "Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "primaryColor": "#e3f2fd", "primaryTextColor": "#1e293b", "primaryBorderColor": "#1a73e8", "lineColor": "#1a73e8", "secondaryColor": "#fff3e0", "tertiaryColor": "#e8f5e9", "background": "#ffffff", "edgeLabelBackground": "#ffffff"}}}%%
+flowchart TB
+    DISCOVER["<b>1. Discover and preflight</b><br/>inspect the project without changing it"]
+    SCOPE{"<b>2. Human checkpoint</b><br/>approve frameworks and files"}
+    BOOTSTRAP["<b>3. Bootstrap once</b><br/>shared dependencies, config, and smoke test"]
+    UNIT["<b>4. Build the unit-test foundation</b><br/>write and pass meaningful tests"]
+    CHARTER{"<b>5. Human checkpoint</b><br/>approve one E2E test charter"}
+
+    API["<b>6A. API tests</b><br/>one owned path"]
+    UI["<b>6B. UI tests</b><br/>one owned path"]
+    PERF["<b>6C. k6 tests</b><br/>one owned path"]
+
+    BUILD["<b>7. Build gate</b>"]
+    UNIT_GATE["<b>8. Unit gate</b>"]
+    API_GATE["<b>9. API gate</b>"]
+    UI_GATE["<b>10. UI gate</b>"]
+    K6_GATE["<b>11. k6 gate</b>"]
+    REVIEW["<b>12. Human evidence review</b><br/>inspect results, risks, and final verdict"]
+
+    DISCOVER --> SCOPE --> BOOTSTRAP --> UNIT --> CHARTER
+    CHARTER -- "author in parallel" --> API & UI & PERF
+    API & UI & PERF --> BUILD
+    BUILD --> UNIT_GATE --> API_GATE --> UI_GATE --> K6_GATE --> REVIEW
+
+    style DISCOVER fill:#e3f2fd,stroke:#1a73e8
+    style SCOPE fill:#e3f2fd,stroke:#1a73e8,stroke-width:3px
+    style BOOTSTRAP fill:#fff3e0,stroke:#e65100
+    style UNIT fill:#fff3e0,stroke:#e65100
+    style CHARTER fill:#e3f2fd,stroke:#1a73e8,stroke-width:3px
+    style API fill:#f3e5f5,stroke:#7b1fa2
+    style UI fill:#f3e5f5,stroke:#7b1fa2
+    style PERF fill:#f3e5f5,stroke:#7b1fa2
+    style BUILD fill:#fff3e0,stroke:#e65100
+    style UNIT_GATE fill:#fff3e0,stroke:#e65100
+    style API_GATE fill:#fff3e0,stroke:#e65100
+    style UI_GATE fill:#fff3e0,stroke:#e65100
+    style K6_GATE fill:#fff3e0,stroke:#e65100
+    style REVIEW fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
 ```
 
 Test authoring can run in parallel when workers own separate paths and consume the same approved contract. Final execution is ordered because the suites may share a server, port, test data, and machine resources. The k6 gate runs after functional tests so load does not distort their evidence.
