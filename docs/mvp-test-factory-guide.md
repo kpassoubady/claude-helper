@@ -19,11 +19,11 @@ Write and pass meaningful unit tests
          |
 Approve one E2E charter
          |
-  +------+------+ 
+  +------+------+
   |      |      |
  API     UI     k6       author in parallel
   |      |      |
-  +------+------+ 
+  +------+------+
          |
 Build -> unit -> API -> UI -> k6
          |
