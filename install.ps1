@@ -1,7 +1,4 @@
 #!/usr/bin/env pwsh
-Set-StrictMode -Version Latest
-$ErrorActionPreference = 'Stop'
-
 param(
     [Alias('f')]
     [switch]$Force,
@@ -15,6 +12,9 @@ param(
     [Parameter(ValueFromRemainingArguments = $true)]
     [string[]]$Modules
 )
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
 
 $CLAUDE_HOME = if ($env:CLAUDE_HOME) { $env:CLAUDE_HOME } else { Join-Path $HOME '.claude' }
 $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
