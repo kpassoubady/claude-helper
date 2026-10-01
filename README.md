@@ -140,8 +140,19 @@ PowerShell equivalents:
 
 | File | What it does |
 |------|-------------|
+| [Agentic Development Workflow](docs/agentic-development-workflow.md) | Simplified representation of how features are decomposed and built |
 | [Model Selection Guide](docs/model-selection-guide.md) | Full reference for model cost/capability tradeoffs |
 | [MVP Test Factory Guide](docs/mvp-test-factory-guide.md) | Reusable workflow and password-strength-checker reference run |
+
+## How to Invoke the Agentic Development Workflow
+
+The development workflow in `docs/agentic-development-workflow.md` can be invoked in two ways:
+
+1. **Using a Pre-Built Skill:** For specific domains, you can invoke a pre-built skill that implements this pattern. For example, to run the validation layer, simply use the `/mvp-test-factory` slash command inside Claude Code.
+2. **Contextual Instruction:** To apply the full research-build-validate workflow to a new feature, pass the workflow document as context when launching Claude:
+   ```bash
+   claude -p "Implement the user profile feature by following the workflow in docs/agentic-development-workflow.md"
+   ```
 
 ## Adding New Customizations
 
