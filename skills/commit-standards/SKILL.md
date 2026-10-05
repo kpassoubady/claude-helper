@@ -6,7 +6,7 @@ description: Commit message formatting standards. Use when creating commits or P
 ## Format
 
 ```
-<TASKNUMBER>: <short description>
+<TASKNUMBER|MAINT>: <short description>
 
 - <high-level change 1>
 - <high-level change 2>
@@ -15,6 +15,7 @@ description: Commit message formatting standards. Use when creating commits or P
 ## Rules
 
 - First line: task number, colon, short description (under 72 chars)
+- Use `MAINT` as the prefix when the change isn't tied to a task/defect number — never invent one
 - Describe WHAT changed and WHY, not HOW
 - NO implementation details (no function names, query syntax, line counts)
 - NO technical specifics

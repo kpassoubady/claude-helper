@@ -46,6 +46,19 @@ cd claude-helper
 
 This copies everything into `$HOME/.claude`, skipping files that already exist.
 
+## Install Into a Project (Project Level)
+
+If installing globally into `~/.claude/` doesn't work for you, install into a single project instead with `-p` (`-Path` on PowerShell). Files go to `<dir>/.claude/`, which Claude Code reads when you open that project. The directory is created if it doesn't exist.
+
+```bash
+./install.sh -p ~/code/my-project
+./install.sh -p ~/code/my-project rules commands   # specific modules only
+```
+
+```powershell
+.\install.ps1 -Path C:\code\my-project
+```
+
 ## Install Options
 
 ```bash
@@ -61,6 +74,9 @@ This copies everything into `$HOME/.claude`, skipping files that already exist.
 
 # Dry run — preview without copying
 ./install.sh -d
+
+# Install into a project's .claude/ instead of ~/.claude/
+./install.sh -p /path/to/project
 
 # Combine options
 ./install.sh -d rules          # Dry run, rules only
@@ -82,6 +98,9 @@ PowerShell equivalents:
 
 # Dry run - preview without copying
 .\install.ps1 -DryRun
+
+# Install into a project's .claude\ instead of ~\.claude\
+.\install.ps1 -Path C:\path\to\project
 
 # Combine options
 .\install.ps1 -DryRun rules      # Dry run, rules only
@@ -205,6 +224,8 @@ The installer copies hook scripts to `~/.claude/hooks/`, but they also need to b
 
 Pick only the hooks you want — they're independent of each other.
 
+For a project-level install (`-p`), put the `hooks` key in `<project>/.claude/settings.json` and point the commands at `"$CLAUDE_PROJECT_DIR"/.claude/hooks/...` instead of `~/.claude/hooks/...`.
+
 ## Uninstall
 
-The installer only copies files — it never deletes. To remove, manually delete the corresponding files from `~/.claude/`.
+The installer only copies files — it never deletes. To remove, manually delete the corresponding files from `~/.claude/` (or `<project>/.claude/` for a project-level install).

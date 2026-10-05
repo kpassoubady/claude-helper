@@ -22,6 +22,7 @@ usage() {
   echo "  If no modules specified, all available modules are installed."
   echo ""
   echo -e "${BOLD}Options:${NC}"
+  echo "  -p, --path <dir>  Install into <dir>/.claude (project level) instead of ~/.claude"
   echo "  -f, --force       Overwrite existing files (default: skip)"
   echo "  -d, --dry-run     Show what would be installed without copying"
   echo "  -h, --help        Show this help message"
@@ -31,12 +32,14 @@ usage() {
   echo "  ./install.sh rules            # Install only rules"
   echo "  ./install.sh rules commands   # Install rules and commands"
   echo "  ./install.sh -f rules         # Force overwrite rules"
+  echo "  ./install.sh -p ~/my-project  # Install into ~/my-project/.claude"
   echo "  ./install.sh -d               # Dry run, show what would happen"
 }
 
 # Defaults
 FORCE=false
 DRY_RUN=false
+PROJECT_DIR=""
 MODULES=()
 
 # Parse args
@@ -44,11 +47,32 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     -f|--force)  FORCE=true; shift ;;
     -d|--dry-run) DRY_RUN=true; shift ;;
+    -p|--path)
+      if [[ $# -lt 2 || -z "$2" || "$2" == -* ]]; then
+        echo -e "${RED}Option $1 requires a directory argument${NC}"; usage; exit 1
+      fi
+      PROJECT_DIR="$2"; shift 2 ;;
     -h|--help)   usage; exit 0 ;;
     -*)          echo -e "${RED}Unknown option: $1${NC}"; usage; exit 1 ;;
     *)           MODULES+=("$1"); shift ;;
   esac
 done
+
+# Project-level install: target <dir>/.claude instead of ~/.claude
+if [[ -n "$PROJECT_DIR" ]]; then
+  if [[ ! -d "$PROJECT_DIR" ]]; then
+    if [[ "$DRY_RUN" == true ]]; then
+      echo -e "${YELLOW}Directory does not exist, would create: $PROJECT_DIR${NC}"
+    else
+      mkdir -p "$PROJECT_DIR"
+      echo -e "${YELLOW}Directory did not exist, created: $PROJECT_DIR${NC}"
+    fi
+  fi
+  if [[ -d "$PROJECT_DIR" ]]; then
+    PROJECT_DIR="$(cd "$PROJECT_DIR" && pwd)"
+  fi
+  CLAUDE_HOME="$PROJECT_DIR/.claude"
+fi
 
 # If no modules specified, install all that exist in repo
 if [[ ${#MODULES[@]} -eq 0 ]]; then
