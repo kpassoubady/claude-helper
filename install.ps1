@@ -1,5 +1,8 @@
 #!/usr/bin/env pwsh
 param(
+    [Alias('p')]
+    [string]$Path,
+
     [Alias('f')]
     [switch]$Force,
 
@@ -28,6 +31,7 @@ function Show-Usage {
     Write-Host '  If no modules specified, all available modules are installed.'
     Write-Host ''
     Write-Host 'Options:'
+    Write-Host '  -p, -Path <dir>  Install into <dir>\.claude (project level) instead of ~\.claude'
     Write-Host '  -f, -Force     Overwrite existing files (default: skip)'
     Write-Host '  -d, -DryRun    Show what would be installed without copying'
     Write-Host '  -h, -Help      Show this help message'
@@ -38,11 +42,29 @@ function Show-Usage {
     Write-Host '  .\install.ps1 rules commands     # Install rules and commands'
     Write-Host '  .\install.ps1 -Force rules       # Force overwrite rules'
     Write-Host '  .\install.ps1 -DryRun            # Dry run, show what would happen'
+    Write-Host '  .\install.ps1 -Path C:\my-project  # Install into C:\my-project\.claude'
 }
 
 if ($Help) {
     Show-Usage
     exit 0
+}
+
+# Project-level install: target <dir>\.claude instead of ~\.claude
+if ($Path) {
+    if (-not (Test-Path -LiteralPath $Path -PathType Container)) {
+        if ($DryRun) {
+            Write-Host "Directory does not exist, would create: $Path" -ForegroundColor Yellow
+        }
+        else {
+            New-Item -ItemType Directory -Path $Path -Force | Out-Null
+            Write-Host "Directory did not exist, created: $Path" -ForegroundColor Yellow
+        }
+    }
+    if (Test-Path -LiteralPath $Path -PathType Container) {
+        $Path = (Resolve-Path -LiteralPath $Path).Path
+    }
+    $CLAUDE_HOME = Join-Path $Path '.claude'
 }
 
 if (-not $Modules -or $Modules.Count -eq 0) {
